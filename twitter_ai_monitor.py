@@ -453,9 +453,9 @@ if __name__ == "__main__":
     
     # 默认配置
     default_config = {
-        "TWITTER_API_KEY": "b74c1eefe10044a582d9a3c6b82c4ee5",
+        "TWITTER_API_KEY": "b74c1eefe1004xxx3c6b82c4ee5",
         "LLM_URL": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "LLM_API_KEY": "sk-bf2a9bf3ce4d431096b344d8bbe5fbdc",
+        "LLM_API_KEY": "sk-bf2a9bf3xxxb344d8bbe5fbdc",
         "TARGET_ACCOUNTS": ["OpenAI"],
         "CHECK_INTERVAL": 300,
         "INITIAL_HOURS": 64,
