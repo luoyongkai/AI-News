@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1955456650304950500",
+    "author": "OpenAI",
+    "created_at": "Wed Aug 13 02:29:30 +0000 2025",
+    "original_text": "RT @sama: Updates to ChatGPT:\n\nYou can now choose between “Auto”, “Fast”, and “Thinking” for GPT-5. Most users will want Auto, but the addi…",
+    "tweet_url": "https://twitter.com/OpenAI/status/1955456650304950500",
+    "ai_title": "GPT-5模式升级：新增“思考”与“快速”选项",
+    "ai_translation": "RT @sama：ChatGPT更新：\n\n现在你可以选择“自动”、“快速”和“思考”模式来使用GPT-5。大多数用户会选择自动模式，但新增的…",
+    "ai_analysis": "该推文宣布ChatGPT新增三种模式选择：“Auto”、“Fast”和“Thinking”，用户可根据需求切换不同推理模式。其背景是用户对AI模型在响应速度与思考深度上的多样化需求日益增强。此举将推动AI在个性化交互、效率优化及复杂任务处理方面的发展，尤其对客服、内容创作和科研等领域影响深远。同时，这也反映出大模型正向“场景化适配”演进，标志着AI应用进入精细化运营新阶段。",
+    "timestamp": "2025-08-14T10:36:53.353779",
+    "processed_date": "2025-08-14"
+  },
+  {
+    "id": "1954991110247551223",
+    "author": "OpenAI",
+    "created_at": "Mon Aug 11 19:39:37 +0000 2025",
+    "original_text": "For the IOI online AI track, we used an API to access problems and submit solutions without direct supervision from the contest organizers.",
+    "tweet_url": "https://twitter.com/OpenAI/status/1954991110247551223",
+    "ai_title": "IOI线上AI赛首用API提交解题",
+    "ai_translation": "对于IOI在线AI赛道，我们通过API访问题目并提交解答，整个过程无需赛事组织者的直接监督。",
+    "ai_analysis": "该推文透露出在IOI（国际信息学奥林匹克）线上AI赛项中，参赛者通过API访问题目并提交解答，全程缺乏主办方直接监管。  \n\n1. **主要信息与观点**：强调比赛流程高度自动化，暗示可能存在监管漏洞或对公平性的挑战。  \n2. **背景与原因**：反映在线竞赛模式的兴起，以及技术实现上对自动化系统的依赖，但监管机制尚未完善。  \n3. **对相关领域的影响**：引发对AI竞赛公平性、技术伦理和监管机制的广泛讨论，推动行业反思在线测评体系的规范性。  \n4. **值得关注的要点**：API接口是否安全？是否存在作弊风险？赛事组织者对技术工具的依赖是否过度？",
+    "timestamp": "2025-08-14T10:37:01.418783",
+    "processed_date": "2025-08-14"
+  },
+  {
+    "id": "1955456650304950500",
+    "author": "OpenAI",
+    "created_at": "Wed Aug 13 02:29:30 +0000 2025",
+    "original_text": "RT @sama: Updates to ChatGPT:\n\nYou can now choose between “Auto”, “Fast”, and “Thinking” for GPT-5. Most users will want Auto, but the addi…",
+    "tweet_url": "https://twitter.com/OpenAI/status/1955456650304950500",
+    "ai_title": "ChatGPT升级：新增GPT-5模式选择功能",
+    "ai_translation": "RT @sama：ChatGPT更新：\n\n现在你可以选择“自动”、“快速”和“思考”模式来使用GPT-5。大多数用户会适合使用“自动”模式，但新增的…",
+    "ai_analysis": "该推文宣布ChatGPT新增三种GPT-5推理模式：“Auto”、“Fast”和“Thinking”，用户可根据需求选择。其背景是AI大模型在实际应用中需平衡效率与准确性。此举将推动AI在个性化服务、计算资源优化等方面的发展，提升用户体验与应用场景适配性。值得关注的是，这反映出模型部署正从“单一模式”转向“精细化运营”，预示未来AI将更智能地适应不同任务需求，加速AI在商业与科研领域的落地进程。",
+    "timestamp": "2025-08-14T10:39:26.488980",
+    "processed_date": "2025-08-14"
+  },
+  {
+    "id": "1954991110247551223",
+    "author": "OpenAI",
+    "created_at": "Mon Aug 11 19:39:37 +0000 2025",
+    "original_text": "For the IOI online AI track, we used an API to access problems and submit solutions without direct supervision from the contest organizers.",
+    "tweet_url": "https://twitter.com/OpenAI/status/1954991110247551223",
+    "ai_title": "IOI线上AI赛段首次采用API接口自主提交解题方案",
+    "ai_translation": "对于IOI线上AI赛道，我们通过一个API来访问题目并提交解答，整个过程无需比赛组织方直接监督。",
+    "ai_analysis": "该推文透露出在IOI（国际信息学奥林匹克）在线AI赛道中，参赛者通过API访问题目并提交解答，全程无需主办方直接监管。这反映了赛事高度自动化与去中心化趋势。背后可能是技术成熟推动自主评测体系发展，也暗示对传统竞赛模式的挑战。此举可能削弱主办方控制力，引发公平性质疑，同时凸显AI竞赛治理机制亟需更新。值得注意的是，该做法或预示未来远程竞赛新模式，但也带来安全隐患与作弊风险，需更完善的技术监管手段。",
+    "timestamp": "2025-08-14T10:39:33.755425",
+    "processed_date": "2025-08-14"
+  }
+]

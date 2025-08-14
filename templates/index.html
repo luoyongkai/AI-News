@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - AI News Monitor{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 style="background: linear-gradient(45deg, #667eea, #764ba2, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <i class="bi bi-robot"></i> AI Intelligence News
+            </h1>
+            <div class="d-flex align-items-center">
+                <span class="text-muted me-3">共 {{ tweets|length }} 条新闻</span>
+                <span id="live-status" class="badge bg-secondary">
+                    <i class="bi bi-circle-fill"></i> 实时更新
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 筛选器 -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #ffffff;"><i class="bi bi-sliders"></i> Neural Filters</h5>
+                <form method="GET" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="author" class="form-label">作者</label>
+                        <select class="form-select" id="author" name="author">
+                            <option value="">全部作者</option>
+                            {% for author in authors %}
+                                <option value="{{ author }}" {% if author == current_author %}selected{% endif %}>
+                                    {{ author }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="date" class="form-label">日期</label>
+                        <input type="date" class="form-control" id="date" name="date" value="{{ current_date }}">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="bi bi-search"></i> 筛选
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-clockwise"></i> 重置
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 新闻卡片列表 -->
+<div class="row">
+    {% if tweets %}
+        {% for tweet in tweets %}
+            <div class="col-lg-6 col-xl-4 mb-4">
+                <div class="card h-100 tweet-card" data-tweet-id="{{ tweet.id }}" style="cursor: pointer;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <strong>{{ tweet.author }}</strong>
+                        </div>
+                        <small class="text-muted">{{ tweet.created_at[:10] if tweet.created_at else '' }}</small>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title mb-3" style="color: #00d4ff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);">
+                            <i class="bi bi-cpu-fill"></i> {{ tweet.ai_title }}
+                        </h6>
+                        <p class="card-text">
+                            {{ tweet.ai_translation[:150] }}{% if tweet.ai_translation|length > 150 %}...{% endif %}
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>
+                            <i class="bi bi-clock"></i> 
+                            处理时间: {{ tweet.beijing_time if tweet.beijing_time else tweet.timestamp[:19].replace('T', ' ') }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="text-center py-5 empty-state">
+                <i class="bi bi-database display-1" style="color: rgba(102, 126, 234, 0.6);"></i>
+                <h3 class="mt-3" style="color: #b8c5d1;">Neural Network Idle</h3>
+                <p style="color: rgba(184, 197, 209, 0.8);">Activate AI monitoring system to begin intelligence gathering</p>
+                <a href="{{ url_for('settings') }}" class="btn btn-primary">
+                    <i class="bi bi-gear"></i> 前往设置
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- 加载更多按钮 -->
+{% if tweets|length >= 20 %}
+<div class="row">
+    <div class="col-12 text-center">
+        <button class="btn btn-outline-primary" id="load-more">
+            <i class="bi bi-arrow-down-circle"></i> 加载更多
+        </button>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+let lastTweetCount = 0;
+let isRefreshing = false;
+
+// 定期更新监控状态
+function updateSystemStatus() {
+    if (isRefreshing) return;
+    
+    fetch('/api/monitoring_status')
+        .then(response => response.json())
+        .then(data => {
+            // 更新导航栏状态
+            const statusElement = document.getElementById('monitoring-status');
+            if (statusElement) {
+                if (data.running) {
+                    statusElement.innerHTML = '<i class="bi bi-cpu"></i> AI ACTIVE';
+                    statusElement.className = 'badge bg-success';
+                } else {
+                    statusElement.innerHTML = '<i class="bi bi-power"></i> OFFLINE';
+                    statusElement.className = 'badge bg-danger';
+                }
+            }
+            
+            // 更新实时状态显示和倒计时
+            const liveStatus = document.getElementById('live-status');
+            if (liveStatus) {
+                if (data.running) {
+                    const status = data.current_status || 'AI运行中';
+                    
+                    // 如果有下次检查时间，显示倒计时
+                    if (data.next_check_time) {
+                        const nextCheck = new Date(data.next_check_time);
+                        const now = new Date();
+                        const diff = nextCheck - now;
+                        
+                        if (diff > 0) {
+                            const minutes = Math.floor(diff / 60000);
+                            const seconds = Math.floor((diff % 60000) / 1000);
+                            const countdown = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+                            liveStatus.innerHTML = '<i class="bi bi-clock"></i> 下次扫描: ' + countdown;
+                            liveStatus.className = 'badge bg-info';
+                        } else {
+                            liveStatus.innerHTML = '<i class="bi bi-cpu"></i> ' + status;
+                            liveStatus.className = 'badge bg-success';
+                        }
+                    } else {
+                        liveStatus.innerHTML = '<i class="bi bi-cpu"></i> ' + status;
+                        liveStatus.className = 'badge bg-success';
+                    }
+                } else {
+                    liveStatus.innerHTML = '<i class="bi bi-power"></i> 离线';
+                    liveStatus.className = 'badge bg-secondary';
+                }
+            }
+        })
+        .catch(error => console.error('更新状态失败:', error));
+}
+
+// 检查新推文
+function checkForNewTweets() {
+    if (isRefreshing) return;
+    
+    fetch('/api/tweets')
+        .then(response => response.json())
+        .then(tweets => {
+            if (tweets.length > lastTweetCount) {
+                // 有新推文，刷新页面
+                isRefreshing = true;
+                const liveStatus = document.getElementById('live-status');
+                if (liveStatus) {
+                    liveStatus.innerHTML = '<i class="bi bi-arrow-clockwise"></i> 发现新推文，正在更新...';
+                    liveStatus.className = 'badge bg-info';
+                }
+                
+                setTimeout(function() {
+                    window.location.reload();
+                }, 2000);
+            }
+            lastTweetCount = tweets.length;
+        })
+        .catch(error => console.error('检查新推文失败:', error));
+}
+
+// 每2秒更新状态（更频繁的倒计时更新），每30秒检查新推文
+setInterval(updateSystemStatus, 2000);
+setInterval(checkForNewTweets, 30000);
+
+// 推文卡片点击事件
+document.addEventListener('click', function(e) {
+    const tweetCard = e.target.closest('.tweet-card');
+    if (tweetCard) {
+        const tweetId = tweetCard.getAttribute('data-tweet-id');
+        window.location.href = `/tweet/${tweetId}`;
+    }
+});
+
+// 页面加载时立即更新一次
+document.addEventListener('DOMContentLoaded', function() {
+    updateSystemStatus();
+});
+</script>
+{% endblock %} 

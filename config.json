@@ -1,0 +1,11 @@
+{
+  "TWITTER_API_KEY": "xxxxxc6a30",
+  "LLM_URL": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "LLM_API_KEY": "sk-xxx",
+  "TARGET_ACCOUNTS": [
+    "OpenAI",
+    "Google"
+  ],
+  "CHECK_INTERVAL": 300,
+  "INITIAL_HOURS": 64
+}
